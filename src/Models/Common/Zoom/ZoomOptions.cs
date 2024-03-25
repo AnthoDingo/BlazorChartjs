@@ -16,23 +16,23 @@ namespace PSC.Blazor.Components.Chartjs.Models.Common
         /// </summary>
         /// <value>The on zoom event.</value>
         [JsonIgnore]
-        public Func<ZoomContext, ValueTask>? OnZoomAsync { get; set; }
+        public Func<ZoomContext, ValueTask>? OnZoom { get; set; }
 
         /// <summary>
         /// Gets or sets the on zoom complete event.
         /// </summary>
         /// <value>The on zoom complete event.</value>
         [JsonIgnore]
-        public Func<ZoomContext, ValueTask>? OnZoomCompleteAsync { get; set; }
+        public Func<ZoomContext, ValueTask>? OnZoomComplete { get; set; }
         #endregion
 
         [JsonInclude]
         [JsonPropertyName("onZoomEnable")]
-        public bool OnZoomEnable => OnZoomAsync != null;
+        public bool OnZoomEnable => OnZoom != null;
 
         [JsonInclude]
         [JsonPropertyName("onZoomCompleteEnable")]
-        public bool OnZoomCompleteEnable => OnZoomCompleteAsync != null;
+        public bool OnZoomCompleteEnable => OnZoomComplete != null;
 
         /// <summary>
         /// Gets or sets the drag.

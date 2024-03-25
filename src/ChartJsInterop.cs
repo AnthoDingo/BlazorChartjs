@@ -28,7 +28,13 @@ namespace PSC.Blazor.Components.Chartjs
         public async ValueTask AddNewDataset<T>(string CanvasId, T dataset, bool Update) where T : class
         {
             var module = await moduleTask.Value;
-            await module.InvokeVoidAsync("addNewDataset", CanvasId, dataset, Update);
+            try
+            {
+                await module.InvokeVoidAsync("addNewDataset", CanvasId, dataset, Update);
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }            
         }
 
         public async ValueTask SetNewDataset<T>(string CanvasId, T dataset) where T : class
@@ -40,7 +46,14 @@ namespace PSC.Blazor.Components.Chartjs
         public async ValueTask UpdateChart(string CanvasId)
         {
             var module = await moduleTask.Value;
-            await module.InvokeVoidAsync("UpdateChart", CanvasId);
+            try
+            {
+                await module.InvokeVoidAsync("UpdateChart", CanvasId);
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
     }
 }

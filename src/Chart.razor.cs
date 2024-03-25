@@ -81,6 +81,9 @@ namespace PSC.Blazor.Components.Chartjs
 
         #region Events
 
+        [Parameter]
+        public EventCallback OnChartSetupComplet { get; set; }
+
         /// <summary>
         /// Gets or sets the on chart click.
         /// </summary>
@@ -144,6 +147,11 @@ namespace PSC.Blazor.Components.Chartjs
 
                     JSModule = new ChartJsInterop(JSRuntime);
                     await JSModule.Setup(dotNetObjectRef, Config);
+
+                    if (OnChartSetupComplet.HasDelegate)
+                    {
+                        OnChartSetupComplet.InvokeAsync(null);
+                    }
                 }
 
                 OldConfig = Config;
@@ -157,6 +165,14 @@ namespace PSC.Blazor.Components.Chartjs
             else
                 return ValueTask.CompletedTask;
         }
+
+        //private void OnOnChartSetupCompletVoid()
+        //{
+        //    if (OnChartSetupComplet.HasDelegate)
+        //    {
+        //        OnChartSetupComplet.InvokeAsync(null);
+        //    }
+        //}
 
         #region JavaScript invokable functions
 
@@ -213,8 +229,8 @@ namespace PSC.Blazor.Components.Chartjs
         [JSInvokable]
         public static async Task<ValueTask> OnZoomAsync(DotNetObjectReference<IChartConfig> config, ZoomContext ctx)
         {
-            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoomAsync != null)
-                return options.Plugins.Zoom.ZoomOptions.OnZoomAsync(ctx);
+            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoom != null)
+                return options.Plugins.Zoom.ZoomOptions.OnZoom(ctx);
             else
                 return ValueTask.CompletedTask;
         }
@@ -222,8 +238,8 @@ namespace PSC.Blazor.Components.Chartjs
         [JSInvokable]
         public static async Task<ValueTask> OnZoomCompleteAsync(DotNetObjectReference<IChartConfig> config, ZoomContext ctx)
         {
-            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoomAsync != null)
-                return options.Plugins.Zoom.ZoomOptions.OnZoomCompleteAsync(ctx);
+            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoom != null)
+                return options.Plugins.Zoom.ZoomOptions.OnZoomComplete(ctx);
             else
                 return ValueTask.CompletedTask;
         }
