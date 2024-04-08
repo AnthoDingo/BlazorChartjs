@@ -238,7 +238,7 @@ namespace PSC.Blazor.Components.Chartjs
         [JSInvokable]
         public static async Task<ValueTask> OnZoomCompleteAsync(DotNetObjectReference<IChartConfig> config, ZoomContext ctx)
         {
-            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoom != null)
+            if (config.Value.Options is Options options && options?.Plugins?.Zoom?.ZoomOptions?.OnZoomComplete != null)
                 return options.Plugins.Zoom.ZoomOptions.OnZoomComplete(ctx);
             else
                 return ValueTask.CompletedTask;
